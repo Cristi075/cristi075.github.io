@@ -156,7 +156,7 @@ We can notice some things by analysing the code:
     * But as I mentioned above, the order of the words 'scan' and 'read' in the string does not matter. This means that we could make the request to `/geneSign` using 'read' followed the the URL as the value for 'param'. After the strings are merged this will be the same as if the action was "scanread" and the value of 'param' was the original URL  that we wanted to access
 * Doing the actions mentioned above allowed me to access /etc/passwd as a PoC for this "exploit". Howevere, as we expected, only the first 50 characters of the file were returned.
 
-![Reading from /etc/passwd]({{site.baseurl}}{{site.baseurl}}/assets/img/De1CTF_2019/ssrf_1.png){: .center-image}
+![Reading from /etc/passwd]({{site.baseurl}}/assets/img/De1CTF_2019/ssrf_1.png){: .center-image}
 
 * To make things easier from here, I created a Python script that does all the required steps to read a file from the server
 
@@ -216,9 +216,9 @@ We can notice some things by analysing the code:
     * For this, I tried to access `/proc/self/cmdline` to get some information about the current process (the working directory in particular) but the 50 character limit prevented me from obtaining relevant information
     * I also tried reading other files from the system or from /proc/self but I couldn't get any useful information. An example of useless information that I got was that PID of the process and the fact that the server uses the [uWSGI framework](https://uwsgi-docs.readthedocs.io/en/latest/)
 
-![PID and uwsgi]({{site.baseurl}}{{site.baseurl}}/assets/img/De1CTF_2019/ssrf_2.png){: .center-image}
+![PID and uwsgi]({{site.baseurl}}/assets/img/De1CTF_2019/ssrf_2.png){: .center-image}
 
 * After a while I decided to take a step back and try going for `./flag` again but this time I tried to read `flag` (without the './')
     * To my surprise, that worked and I obtained the flag for this challenge
 
-![flag obtained]({{site.baseurl}}{{site.baseurl}}/assets/img/De1CTF_2019/ssrf_3.png){: .center-image}
+![flag obtained]({{site.baseurl}}/assets/img/De1CTF_2019/ssrf_3.png){: .center-image}

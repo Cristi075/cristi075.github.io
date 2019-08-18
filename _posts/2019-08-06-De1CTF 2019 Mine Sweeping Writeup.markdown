@@ -9,7 +9,7 @@ The files for this challenge might be still available on [ctftime](https://ctfti
 
 For this challenge we had access to an archive containing a game made in Unity and its dependencies (DLLs and assets). At a first glance, the game looked like the classic minesweeper (That was probably expected with that title). Also, I couldn't find any stated goal or objective that would lead me to the flag so I assumed that I probably have to finish/win the game in order to get the flag.
 
-![Minesweeper game](/assets/img/De1CTF_2019/minesweeping_1.png){: .center-image}
+![Minesweeper game](../assets/img/De1CTF_2019/minesweeping_1.png){: .center-image}
 
 Because the game was created using Unity my first thought was to decompile it using [dnSpy](https://github.com/0xd4d/dnSpy). As reverse isn't my thing (yet...) I couldn't get any code by doing this.  
 Also, some quick static analysis performed on the game files did not reveal anything useful.  
@@ -184,7 +184,7 @@ After running the second script, I quickly realized that I made some mistakes on
 
 However, when I took at the csv file in a text editor I noticed something.
 
-![CSV data](/assets/img/De1CTF_2019/minesweeping_2.png){: .center-image}
+![CSV data](../assets/img/De1CTF_2019/minesweeping_2.png){: .center-image}
 
 It looks similar to a QR code (look at the corners). And qr codes are quite resilient so even if a part of them was damaged they can still be read.  
 Maybe that's where the flag was hidden so I wrote a very quick python script to convert the 1s and 0s to a PNG file that I could scan more easily.  
@@ -224,9 +224,9 @@ img.save("result.png")
 The result was a QR code that was a bit damaged in the center, as expected. It was only 29x29 pixels so I had to magnify it a bit to make it easily readable. This can be easily done using an image viewer like [nomacs](https://github.com/nomacs/nomacs) (open-source) or an image editor.  
 The QR code that was obtained by me can be seen below.  
 
-![Damaged QR code](/assets/img/De1CTF_2019/minesweeping_3.png){: .center-image}
+![Damaged QR code](../assets/img/De1CTF_2019/minesweeping_3.png){: .center-image}
 
 Reading the QR code got me the following URL `http://qr02.cn/FeJ7dU`.  
 After accessing the URL using a browser I was redirected to another page that contained the flag.
 
-![Flag](/assets/img/De1CTF_2019/minesweeping_4.png){: .center-image}
+![Flag](../assets/img/De1CTF_2019/minesweeping_4.png){: .center-image}

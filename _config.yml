@@ -1,0 +1,39 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: cristi_075
+github_username:  cristi075
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+permalink: /:title
+
+  
+# Paginator config
+paginate: 3
+paginate_path: /page/:num/
+
+
+
+# Custom stuff
+author: Cristi075
+title: Mildly secure
+description: >- # this means to ignore newlines until "baseurl:"
+  This is just a test.
+  Descriptions should go here
+
+source: .
+destination: ./_site
+permalink: /:title

@@ -180,7 +180,7 @@ Next
 </p>
 </details>
 
-After running the second script, I quickly realized that I made some mistakes on the first one and as a result I got most of the cells that were covered by the yellow 'Game over' message wrong (almost all of them were marked as empty even if they were not). This was probably the result of a timing error;  I suspect that the program was not clicking on a regular cell to reset the game after the 'Game over' message appeared.  
+After running the second script, I quickly realized that I made some mistakes on the first one and as a result I got most of the cells that were covered by the yellow 'Game over' message wrong (almost all of them were marked as empty even if they were not). This was probably the result of a timing error;  I suspect that the program was not resetting the game after the 'Game over' message appeared by clicking on a regular cell that was not covered by that message.  
 
 However, when I took at the csv file in a text editor I noticed something.
 

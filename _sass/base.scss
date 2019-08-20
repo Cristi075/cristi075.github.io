@@ -280,3 +280,11 @@ a:active, a:focus {
     margin: 0 auto;
     display: block;
 }
+
+details{
+  summary{
+    color: $chelsea-cucumber;
+    border-bottom: 2px dashed $chelsea-cucumber;
+    border-top: 2px dashed $chelsea-cucumber;
+  }
+}

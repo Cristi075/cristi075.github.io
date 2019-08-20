@@ -3,7 +3,7 @@ layout: post
 title:  "De1CTF 2019 SSRF Me Writeup"
 date:   2019-08-06 18:00:00 +0300
 categories: CTF_writeup De1CTF_2019
-summary: This is my writeup for the Mine Sweeping challenge. This challenge was part of De1CTF 2019. We only got an URL that we should access as part of the challenge. Accessing that URL returns some python code.
+summary: This is my writeup for the SSRF Me challenge. This challenge was part of De1CTF 2019. We only got an URL that we should access as part of the challenge. Accessing that URL returns some python code.
 ---
 This is my writeup for the `SSRF Me` challenge. This challenge was part of [De1CTF 2019](https://ctftime.org/event/843).
 

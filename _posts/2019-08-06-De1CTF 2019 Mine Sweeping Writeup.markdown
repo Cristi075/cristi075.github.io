@@ -23,7 +23,7 @@ I used the [helper tool](https://www.autoitscript.com/autoit3/docs/intro/au3spy.
 The script that I created can be seen below.  
 
 <details>
-  <summary>autosweep_explore.py (click to expand)</summary>
+  <summary>autosweep_explore.au3 (click to expand)</summary>
 <p>
 {% highlight autoit %}
 #include <AutoItConstants.au3>
@@ -102,7 +102,7 @@ This should click on each cell, check if the yellow 'Game over' message appeared
 This part worked really well so I created a second autoit script that would play the game using the data from the csv file. That script can be seen below.
 
 <details>
-  <summary>autosweep_play.py (click to expand)</summary>
+  <summary>autosweep_play.au3 (click to expand)</summary>
 <p>
 {% highlight autoit %}
 #include <AutoItConstants.au3>

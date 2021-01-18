@@ -48,12 +48,49 @@ That being said, [this article](https://medium.com/@narenndhrareddy/misconfigure
 
 ### S3 and DynamoDB
 
+The best way to explore both of these services (S3 and DynamoDB) is to use *awscli*. (sudo apt install awscli, no Debian-based distros)  
+
+First, let's take a look at DynamoDB (since that was the last one that we discovered).  
+We can get a list of tables by running list-tables. The full command would be 
+{%highlight bash %}
+aws dynamodb list-tables --endpoint-url http://s3.bucket.htb
+{%endhighlight%}
+
+We have to specify that we want to connect to a local instance and not to the one hosted by Amazon.  
+You might also have to set up some API keys by running 'aws configure'.  
+You can just put some dummy data in there since we're not accessing Amazon's services. You might also want to set the default output format to 'text'.  
+
+We see that there is a single table named 'users' in the database. We'll use the 'scan' command in order to dump its contents.
+{%highlight bash %}
+aws dynamodb scan --table-name=users --endpoint-url http://s3.bucket.htb
+{%endhighlight%}
+
+The result looks like this. We got three username/password pairs.  
+I tried using all their combinations for authentication using ssh but with no success.
 
 ![Users]({{site.baseurl}}/assets/img/HTB/bucket/users.png){: .center-image}
 
+Next, we'll try to see what we can find by exploring the S3 service.  
+{%highlight bash %}
+aws  s3 ls --endpoint-url http://s3.bucket.htb
+{%endhighlight%}
+First, we enumerate the buckets that are available.  
+We notice two buckets: foobar and adserver.  
+
 ![Bucket list]({{site.baseurl}}/assets/img/HTB/bucket/buckets.png){: .center-image}
 
+Foobar doesn't seem to have anything interesting but adserver looks like it might be useful.
+
 ### Exploring S3 bucket
+
+We should check out the contents of the 'adserver' bucket now.
+
+{%highlight bash %}
+aws --endpoint-url http://s3.bucket.htb s3 ls adserver
+aws --endpoint-url http://s3.bucket.htb s3 ls adserver/images
+{%endhighlight%}
+
+If we download these files we notice that they are the files that can be seen on the web server that we've seen at first (on port 80).
 
 ![Files in S3 bucket]({{site.baseurl}}/assets/img/HTB/bucket/list_files.png){: .center-image}
 

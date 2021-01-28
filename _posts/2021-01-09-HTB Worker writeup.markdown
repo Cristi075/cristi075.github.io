@@ -10,3 +10,31 @@ This is my writeup for the Bucket machine from HackTheBox.eu and it contains my 
 
 ![Worker info card]({{site.baseurl}}/assets/img/HTB/worker/info_card.png){: .center-image}
 [Worker](https://www.hackthebox.eu/home/machines/profile/283) is a Windows machine released on 2020-08-15 and its difficulty level was <b>medium</b>.
+
+### Recon
+
+### SVN
+
+### Azure Devops Server
+
+### Exploiting Azure Devops Server
+
+### Getting a reverse shell
+
+### Enumeration
+
+### Privilege escalation (user)
+
+### More enumeration
+
+### Back to Azure Devops
+
+### Pipelines!
+
+### A small PoC
+
+### Many failed attempts to obtain a shell
+
+### More failed attempt to add a new user (and use it)
+
+### Giving up and getting the root flag

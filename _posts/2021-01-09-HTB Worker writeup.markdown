@@ -87,6 +87,8 @@ After we login with the user that we found (nathen) we see that we have access t
 The first thing that I checked was the pipelines tab. There were multiple pipelines setup but I could not create new ones nor modify existing ones.  
 I was hoping to add my own code to one of these.  
 
+![Access denied - pipelines]({{site.baseurl}}/assets/img/HTB/worker/pipelines_denied.png){: .center-image}
+
 Inside the project, there are multiple repositories. Judging by their names and the pipelines that I've seen, every repository is used to build a specific subdomain (named the same as the repository).  
 An example would be the 'spectral' repository and spectral.worker.htb. I decided to use this one for the next steps (picked it at random, they were quite similar).  
 
@@ -129,7 +131,28 @@ Now we obtained a limited-user shell.
 
 ### Enumeration
 
-### Privilege escalation (user)
+Now that we have access to the system, we start enumerating it. It displays a large (nr. user offerings)  
+When we tried listing the contents of C:\Users only one account that looks like it belongs to an user came back. That is probably the user that we are looking for: **robisl**.  
+
+![Users]({{site.baseurl}}/assets/img/HTB/worker/users.png){: .center-image}
+
+In order to get more information I downloaded [WinPeas](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS) on my machine and then moved it to the target using curl & a webserver.  
+
+![Downloading WinPEAS]({{site.baseurl}}/assets/img/HTB/worker/download_winpeas.png){: .center-image}
+
+Probably the most useful information for now is that there is another drive available, **W:** 
+
+![Available drives]({{site.baseurl}}/assets/img/HTB/worker/drives.png){: .center-image}
+
+There are multiple folders on W:. While exploring them, we found a list of credentials in W:\svnrepos\www\conf\passwd
+
+![Passwd file]({{site.baseurl}}/assets/img/HTB/worker/passwd_file.png){: .center-image}
+
+The credentials that we already know (for nathen) are already there and are correct. We notice that there's also an entry for **robisl**, the user that we are looking for.  
+Now we only need a way to use these credentials. This being a Windows machine, it does not come with the su command like the Linux ones.
+
+
+### Privilege escalation & the user flag
 
 ### More enumeration
 

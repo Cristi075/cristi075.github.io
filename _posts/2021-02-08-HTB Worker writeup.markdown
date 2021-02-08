@@ -131,8 +131,8 @@ Now we obtained a limited-user shell.
 
 ### Enumeration
 
-Now that we have access to the system, we start enumerating it. It displays a large (nr. user offerings)  
-When we tried listing the contents of C:\Users only one account that looks like it belongs to an user came back. That is probably the user that we are looking for: **robisl**.  
+Now that we have access to the system, we start enumerating it. When using 'net users' we see a large number of users.    
+However, hen we tried listing the contents of C:\Users only one account that looks like it belongs to an user came back. That is probably the user that we are looking for: **robisl**.  
 
 ![Users]({{site.baseurl}}/assets/img/HTB/worker/users.png){: .center-image}
 

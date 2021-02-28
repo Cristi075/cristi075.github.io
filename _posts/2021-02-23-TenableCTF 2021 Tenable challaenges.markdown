@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TenableCTF 2021 Tenable challenges"
+title:  "TenableCTF 2021 Tenable challenges writeup"
 date:   2021-02-23 20:00:00 +0300
 categories: CTF_writeup TenableCTF_2021
 summary: A writeup for the Tenable challenges that I solved for TenableCTF 2021 and some of my thoughts on the one that I did not solve.
@@ -22,6 +22,16 @@ Also, I could not get the last flag (supercession).
 I will include my thoughts on that one at the end of this writeup. At the moment of writing this I still don't know where that one was hidden.  
 
 ### Setting up Tenable
+You can get a license/activation key of Nessus Essentials that is able to scan up to 16 IP addresses for free on [their website](https://www.tenable.com/products/nessus/nessus-essentials).  
+This is what they recommended for these challenges in their discord channel.  
+
+In order to get it up, first you have to get an activation key with the method mentioned above (it requires an email & name).  
+Then, you download an installer from [here](https://www.tenable.com/downloads/nessus?loginAttempted=true). You should get the correct installer for your platform and run it.  
+You are probably looking to get a .msi file for Windows, a .dmg for MacOS or a .deb, .rpm or a similar format for Linux.  
+I got the .deb file and installed it on a Ubuntu Server VM using dpkg (sudo dpkg -i ./Nessus-8.13.1-debian6_amd64.deb).
+
+After the installation is done, you should go to the web UI to complete the setup and create an account on that Nessus instance.  
+When you're done. You'll see something like this.  
 
 ### The NessusDB
 

@@ -34,8 +34,24 @@ After the installation is done, you should go to the web UI to complete the setu
 When you're done. You'll see something like this.  
 
 ### The NessusDB
+The file received was Linux_Scan.db.  
+It looks like a regular SQLite file but it cannot be opened with a sqlite explorer even if we know the password.  
+Instead, we should import the file into our instance of Nessus Essentials that we installed before.  
+
 
 ### The 'mutant' flag
+
+After the import was done, I chose to export a .nessus file. That is an XML file so at least I'm dealing with a text file.  
+The first command that I ran was.
+
+
+<p>
+{% highlight bash %}
+cat aaa | grep flag
+{% highlight %}
+</p>
+
+And we already found the first flag (mutant). This was easy.
 
 ### The 'dead' flag
 

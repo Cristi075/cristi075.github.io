@@ -55,6 +55,13 @@ And we already found the first flag (mutant). This was easy.
 
 ### The 'dead' flag
 
+Next, the 'dead' flag. This was the trickiest one for me.  
+The names of the flags give some kind of hints about where they should be.  
+
+In this case 'dead' makes me think about a 'dead' host. This means that besides the two hosts that I can see, there was at least one more host that was not online (so it was 'dead' when the scan ran).
+
+If we take a look at the exported .nessus file we can see that this is indeed correct and we have another host that was defined as a target in this scan: 
+
 ### The 'knowledge' flag
 
 ### The 'command' flag

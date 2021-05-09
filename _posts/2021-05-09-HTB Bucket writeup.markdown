@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "HTB Bucket writeup"
-date:   2021-01-09 18:00:00 +0300
+date:   2021-05-09 18:00:00 +0300
 categories: HTB_writeup
 summary: Writeup for HackTheBox.eu's Bucket machine. Notes on obtaining the user and root flags. 
 ---

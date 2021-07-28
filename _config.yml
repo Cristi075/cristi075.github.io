@@ -23,7 +23,7 @@ permalink: /:title
 
   
 # Paginator config
-paginate: 5
+paginate: 50
 paginate_path: /page/:num/
 
 

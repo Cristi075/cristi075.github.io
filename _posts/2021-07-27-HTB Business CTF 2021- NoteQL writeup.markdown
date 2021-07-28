@@ -36,7 +36,8 @@ First let's try learning more about the database.
 
 This is an introspection query; it gives you information about the queries supported by this GraphQL instance.  
 Introspection queries usually query the __schema field.  
-You can learn more about GraphQL introspection by going [here](https://graphql.org/learn/introspection/) and reading the official documentation. 
+You can learn more about GraphQL introspection by going [here](https://graphql.org/learn/introspection/) and reading the official documentation.  
+Now let's see the results for that query.
 
 ![GraphQL database info]({{app.baseurl}}/assets/img/HTB_Business_CTF_2021/noteQL_all.png){: .center-image}
 

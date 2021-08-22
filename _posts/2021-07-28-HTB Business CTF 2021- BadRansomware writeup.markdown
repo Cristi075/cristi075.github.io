@@ -6,7 +6,7 @@ categories: HTB_Business_CTF_2021 CTF
 summary: Writeup for the BadRansomware challenge from HTB's Business CTF from 2021. This challenge showcased some techniques used by real malware.
 ---
 
-[Bad Ransomware](https://ctftime.org/task/16673) was a challenge at the HTB Business CTF 2021 from the 'Forensics' category.  
+[Bad Ransomware](https://ctftime.org/task/16624) was a challenge at the HTB Business CTF 2021 from the 'Forensics' category.  
 For this challenge we had to download a Microsoft Word document (badRansomware.docm).  
 
 As I was thinking in "CTF-mode", I haven't even tried opening it using Microsoft Word.    

@@ -6,7 +6,6 @@ categories: HTB_Business_CTF_2022 CTF AWS DynamoDB
 summary: Writeup for the Trade challenge from HTB's Business CTF from 2022. This challenge involved interacting with and exploiting two AWS services (AWS SNS and DynamoDB)
 ---
 
-# Recon
 
 Trade was a challenge at the HTB Business CTF 2022 from the 'Cloud' category. It involved two AWS services: AWS SNS (Simple Notification Service) and DynamoDB.
 
@@ -21,7 +20,7 @@ We found 3 open ports:
 The SSH service doesn't show any hint that it could be abused.  
 Also, I'm not that familiar with SVN so we started with the web app on port 80.  
 
-# Web app
+### Web app
 
 On port 80, we found a web app that had a login page with nothing else that looked interesting.  
 
@@ -30,7 +29,7 @@ On port 80, we found a web app that had a login page with nothing else that look
 We started gobuster and tried to enumerate this app but we didn't find anything interesting that way.  
 While the enumeration was running, we looked at the SVN port.  
 
-# SVN repo, user credentials
+### SVN repo, user credentials
 
 SVN is a version control system. It is similar to git, just not as popular :)  
 We can use the SVN client to look at the repositories that are hosted on that server.  
@@ -55,7 +54,7 @@ The other script (SNS.py) interacted with AWS SNS (Simple Notification Service),
 Among other methods of delivering messages, AWS SNS can send notifications through email or SMS.  
 Because of this, SNS seems like a good candidate for sending that OTP to the user.
 
-# Obtaining AWS Credentials
+### Obtaining AWS Credentials
 
 Before we can try doing anything with SNS, we need AWS credentials.  
 The sns.py script had two constants that were used for the credentials but they were removed.  
@@ -76,7 +75,7 @@ We do that by running 'svn up -r 2".
 Most of the sns.py file is identical to the current one with a major difference: in the old revision, the credentials are stored in the script.  
 Now we can use those credentials to access the AWS services.  
 
-# AWS SNS and obtaining the OTP
+### AWS SNS and obtaining the OTP
 
 I already had AWS cli installed from some previous CTFs. But if you don't have it, you can take a look at their [Installation guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
@@ -130,7 +129,7 @@ Now, we try to login again.
 
 And we receive the OTP in a message from SNS. We can use that for logging in.
 
-# Fuzzing the webapp
+### Fuzzing the webapp
 
 The webapp is a "store" that allows you to buy access into companies.  
 However, none of the UI elements do anything so we're probably not going to find anything useful here.  
@@ -156,7 +155,7 @@ Adding "\00\00\00" to the query parameter created some issues with one of the JS
 I also found out that I can get the same kind of error by using a payload that contains double quotes.  
 This means that the JSON string might be controllable by the user.
 
-# DynamoDB injection
+### DynamoDB injection
 
 Judging by the format of the JSON payload, it is probably a ScanFilter for DynamoDB.  
 There are some cases where these payloads are injectable.  
@@ -206,7 +205,7 @@ And after sending the request, it works; we got a list of all the entries in the
 ![Injection result]({{site.baseurl}}/assets/img/HTB_Business_CTF_2022/trade/injection_result.png){: .center-image}
 
 
-# Getting the flag
+### Getting the flag
 
 Since we have an ssh service on this server, the first thing that we'll try is to try using those credentials to login using ssh.  
 

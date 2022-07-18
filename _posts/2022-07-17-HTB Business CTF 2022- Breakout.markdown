@@ -42,7 +42,7 @@ We try accessing them on the server.
 - /ping responds with "pong" 
 - /secret responds with a 403 response (Forbidden).
 
-Using Ghidra, we look at the function that's most likely used for handling the /secret endpoint and find some integers in there that look out of place.  
+Using Ghidra, we look at the function that's most likely used for handling the /secret endpoint (the one named 'secretGet') and find some integers in there that look out of place.  
 
 ![Int variable]({{site.baseurl}}/assets/img/HTB_Business_CTF_2022/breakout/ints.png){: .center-image}
 

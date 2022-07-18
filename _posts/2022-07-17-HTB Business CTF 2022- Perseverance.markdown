@@ -6,13 +6,16 @@ categories: HTB_Business_CTF_2022 CTF forensics
 summary: Writeup for the Perseverance challenge from HTB's Business CTF from 2022. 
 ---
 
-For this challenge we got a zip archive that contains some WMI logs.  
-After unziping it, we get a .BTR file, three .MAP files and a .DATA file.  
+[Perseverance](https://ctftime.org/task/22938) was a forensics challenge from HTB's Business CTF (2022).  
+For this challenge we got a zip archive that contains some WMI logs and the challenge text mentioned investigating a possible compromise.  
+
+After unziping the archive that we got, we get a .BTR file, three .MAP files and a .DATA file.  
 ![ZIP contents]({{site.baseurl}}/assets/img/HTB_Business_CTF_2022/perseverance/zip_contents.png){: .center-image}
 
-None of these seem to contain anything interesting after looking at what binwalk finds in them.  
+The .BTR and .MAP files don't to contain anything interesting on their own after looking at what binwalk finds in them.  
 
-However, it looks like there is a python script that can parse the WMI logs: [https://github.com/davidpany/WMI_Forensics](https://github.com/davidpany/WMI_Forensics)  
+DATA.OBJ has many interesting strings in it, but at first I wanted to see if there is a way to parse that file.  
+After a bit of searching, I found out that there are some python scripts that can parse the WMI logs: a good example (the one that I used here) would be [https://github.com/davidpany/WMI_Forensics](https://github.com/davidpany/WMI_Forensics)  
 We get that script from github and use python2 to run it and we get a single interesting result.  
 
 ![WMI powershell command]({{site.baseurl}}/assets/img/HTB_Business_CTF_2022/perseverance/wmi_powershell.png){: .center-image}

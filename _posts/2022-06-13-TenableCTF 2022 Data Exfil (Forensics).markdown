@@ -19,7 +19,7 @@ It might be worth taking a look at the ICMP stream that contains those 1044 byte
 
 ![ICMP Stream]({{site.baseurl}}/assets/img/TenableCTF_2022/forensics/exfil2.png){: .center-image}
 
-These packets seem to contain some raw data. By decoding some of that raw data using CyberChef we can also see what looks like a PNG signature.  
+These packets seem to contain some raw data. By decoding some of that raw data using CyberChef (using "From Hex") we can also see what looks like a PNG signature.  
 
 So first, we will isolate those packets. For that, I'll use tshark and run this simple command (it extracts all the ICMP packets that have a length of 1044)
 
@@ -46,7 +46,8 @@ print(''.join(reconstructed))
 infile.close()
 {% endhighlight %}
 
-After running it we get a file. By checking with 'file', we can see that this is recognized as a PNG file.  
+The output is hex-encoded so we'll decode it using xxd this time (I'm too lazy to use CyberChef just for this).  
+By checking the resulted file with 'file', we can see that this is recognized as a PNG file.  
 
 ![Reconstructing the data]({{site.baseurl}}/assets/img/TenableCTF_2022/forensics/exfil3.png){: .center-image}
 

@@ -25,7 +25,7 @@ From what I see, they can either increase or decrease the HP of your 'opponent' 
 
 ![The web application]({{site.baseurl}}/assets/img/HackTheBoo_2022/evaluation_deck/webapp.png){: .center-image}
 
-Now, let's take a look at the request that is made when flipping a card.
+Now, let's take a look at the request that is made when flipping a card (using BurpSuite).
 
 ![Request example]({{site.baseurl}}/assets/img/HackTheBoo_2022/evaluation_deck/request.png){: .center-image}
 

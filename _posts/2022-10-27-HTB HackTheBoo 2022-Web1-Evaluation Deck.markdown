@@ -85,3 +85,13 @@ So now it's time to start the docker container and try the same payload in the a
 ![Getting the flag]({{site.baseurl}}/assets/img/HackTheBoo_2022/evaluation_deck/flag.png){: .center-image}
 
 It works without any changes :) 
+
+### Other web challenges from this CTF
+
+This CTF released a challenge in each of its 5 categories each day.  
+I have posted writeups for all the web challenges. Here are some links to them:
+- Day 1 - Evaluation Deck (you are here)
+- Day 2 - [Spookifier](/HTB-HackTheBoo-2022-Web2-Spookifier)
+- Day 3 - [Horror Feeds](/HTB-HackTheBoo-2022-Web3-Horror-Feeds)
+- Day 4 - [Juggling Facts](/HTB-HackTheBoo-2022-Web4-Juggling-Facts)
+- Day 5 - [Cursed Secret Party](/HTB-HackTheBoo-2022-Web5-Cursed-Secret-Party)

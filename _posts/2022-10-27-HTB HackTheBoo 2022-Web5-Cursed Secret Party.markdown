@@ -160,3 +160,14 @@ Note: this was done on the remote server that contained the real flag
 
 Now we decode the received session token using [jwt.io](https://jwt.io/) and we can read the flag from there.  
 ![Getting the flag]({{site.baseurl}}/assets/img/HackTheBoo_2022/cursed_secret_party/decoded_jwt.png){: .center-image}
+
+
+### Other web challenges from this CTF
+
+This CTF released a challenge in each of its 5 categories each day.  
+I have posted writeups for all the web challenges. Here are some links to them:
+- Day 1 - [Evaluation Deck](/HTB-HackTheBoo-2022-Web1-Evaluation-Deck)
+- Day 2 - [Spookifier](/HTB-HackTheBoo-2022-Web2-Spookifier)
+- Day 3 - [Horror Feeds](/HTB-HackTheBoo-2022-Web3-Horror-Feeds)
+- Day 4 - [Juggling Facts](/HTB-HackTheBoo-2022-Web4-Juggling-Facts)
+- Day 5 - Cursed Secret Party (you are here)

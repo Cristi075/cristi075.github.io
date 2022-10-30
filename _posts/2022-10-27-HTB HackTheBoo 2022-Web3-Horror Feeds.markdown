@@ -151,3 +151,13 @@ Now that we changed the name of the existing account, we can create an account n
 After that, we reproduce the attack on the 'production' version of the app (the one from their docker container) and we get the real flag.
 
 ![Getting the flag]({{site.baseurl}}/assets/img/HackTheBoo_2022/horror_feeds/flag.png){: .center-image}
+
+### Other web challenges from this CTF
+
+This CTF released a challenge in each of its 5 categories each day.  
+I have posted writeups for all the web challenges. Here are some links to them:
+- Day 1 - [Evaluation Deck](/HTB-HackTheBoo-2022-Web1-Evaluation-Deck)
+- Day 2 - [Spookifier](/HTB-HackTheBoo-2022-Web2-Spookifier)
+- Day 3 - Horror Feeds (you are here)
+- Day 4 - [Juggling Facts](/HTB-HackTheBoo-2022-Web4-Juggling-Facts)
+- Day 5 - [Cursed Secret Party](/HTB-HackTheBoo-2022-Web5-Cursed-Secret-Party)

@@ -49,10 +49,20 @@ We can confirm this by using a simple payload like ${1+1} and see that we get "2
 
 In order to get the flag, we'll use a simple payload: 
 
-{% highlight python %}
-${open('../flag.txt','r').read()}
+{% highlight text %}
+ ${open('../flag.txt','r').read()}
 {% endhighlight %}
 
 We used this payload on the app running in the docker container spawned for this challenge and we got the flag.
 
 ![Getting the flag]({{site.baseurl}}/assets/img/HackTheBoo_2022/spookifier/flag.png){: .center-image}
+
+### Other web challenges from this CTF
+
+This CTF released a challenge in each of its 5 categories each day.  
+I have posted writeups for all the web challenges. Here are some links to them:
+- Day 1 - [Evaluation Deck](/HTB-HackTheBoo-2022-Web1-Evaluation-Deck)
+- Day 2 - Spookifier (you are here)
+- Day 3 - [Horror Feeds](/HTB-HackTheBoo-2022-Web3-Horror-Feeds)
+- Day 4 - [Juggling Facts](/HTB-HackTheBoo-2022-Web4-Juggling-Facts)
+- Day 5 - [Cursed Secret Party](/HTB-HackTheBoo-2022-Web5-Cursed-Secret-Party)

